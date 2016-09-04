@@ -11,7 +11,7 @@ public class AppState {
 	private long id;
 	
 	@Column
-	private String state;
+	private String name;
 
 	public long getId() {
 		return id;
@@ -21,11 +21,12 @@ public class AppState {
 		this.id = id;
 	}
 
-	public String getState() {
-		return state;
+	public String getName() {
+		return name;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setName(String name) {
+		this.name = name;
 	}
+
 }

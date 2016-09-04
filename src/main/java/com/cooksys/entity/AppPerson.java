@@ -19,21 +19,17 @@ public class AppPerson {
 	@JoinColumn
 	private AppCity city;	
 
-	@ManyToMany
-	@JoinColumn
+	@ManyToMany(mappedBy = "people")
 	private List<AppInterest> interests;
 	
 	@ManyToMany(mappedBy = "members")
 	private List<AppGroup> groups;
 	
-	@ManyToOne
-	private AppState state;
-	
 	public AppPerson() {
 		
 	}
 	
-	public AppPerson(String name, AppCity city, AppInterest interest) {
+	public AppPerson(String name, AppCity city) {
 		this.name = name;
 		this.city = city;
 	}
@@ -78,11 +74,4 @@ public class AppPerson {
 		this.groups = groups;
 	}
 
-	public AppState getState() {
-		return state;
-	}
-
-	public void setState(AppState state) {
-		this.state = state;
-	}
 }

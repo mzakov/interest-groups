@@ -11,7 +11,11 @@ public class AppCity {
 	private long id;
 	
 	@Column
-	private String state;
+	private String name;
+	
+	@ManyToOne
+	@JoinColumn
+	private AppState state;
 
 	public long getId() {
 		return id;
@@ -21,11 +25,21 @@ public class AppCity {
 		this.id = id;
 	}
 
-	public String getState() {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public AppState getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(AppState state) {
 		this.state = state;
 	}
+
+
 }

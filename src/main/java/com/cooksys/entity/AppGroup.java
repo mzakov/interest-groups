@@ -18,12 +18,15 @@ public class AppGroup {
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "Owner")
-	@JsonIgnore
-	private AppPerson owner;
+	@JoinColumn
+	private AppCity city;
+	
+	@ManyToOne
+	@JoinColumn
+	private AppInterest interest;
 	
 	@ManyToMany
-	@JoinTable(name = "GroupPersons")
+	@JoinTable(name = "GroupPeople")
 	@JsonIgnore
 	private List<AppPerson> members;
 
@@ -43,12 +46,20 @@ public class AppGroup {
 		this.name = name;
 	}
 
-	public AppPerson getOwner() {
-		return owner;
+	public AppCity getCity() {
+		return city;
 	}
 
-	public void setOwner(AppPerson owner) {
-		this.owner = owner;
+	public void setCity(AppCity city) {
+		this.city = city;
+	}
+
+	public AppInterest getInterest() {
+		return interest;
+	}
+
+	public void setInterest(AppInterest interest) {
+		this.interest = interest;
 	}
 
 	public List<AppPerson> getMembers() {

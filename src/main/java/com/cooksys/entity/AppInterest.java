@@ -15,12 +15,7 @@ public class AppInterest {
 	private long id;
 	
 	@Column
-	private String interest;
-
-    @ManyToOne
-    @JoinColumn(name = "Owner")
-    @JsonIgnore
-    private AppPerson owner;
+	private String name;
 
     @ManyToMany
     @JoinTable(name = "InterestPeople")
@@ -35,20 +30,12 @@ public class AppInterest {
 		this.id = id;
 	}
 
-	public String getInterest() {
-		return interest;
+	public String getName() {
+		return name;
 	}
 
-	public void setInterest(String interest) {
-		this.interest = interest;
-	}
-
-	public AppPerson getOwner() {
-		return owner;
-	}
-
-	public void setOwner(AppPerson owner) {
-		this.owner = owner;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<AppPerson> getPeople() {
