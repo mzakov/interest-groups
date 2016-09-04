@@ -27,13 +27,18 @@ public class PersonController {
 	}
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.GET)
-	public AppPerson person(@PathVariable("id") long id) {
+	public AppPerson getPerson(@PathVariable("id") long id) {
 		return personService.get(id);
 	}
 	
 	@RequestMapping(path="/{id}/{newName}", method=RequestMethod.PATCH)
 	public AppPerson updatePerson(@PathVariable("id") long id, @PathVariable("newName") String newName) {
 		return personService.update(id, newName);
+	}
+	
+	@RequestMapping(path="/{id}", method=RequestMethod.DELETE)
+	public String deletePerson(@PathVariable("id") long id) {
+		return personService.delete(id);
 	}
 	
 

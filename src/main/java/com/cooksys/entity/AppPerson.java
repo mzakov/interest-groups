@@ -19,12 +19,14 @@ public class AppPerson {
 	@JoinColumn
 	private AppCity city;	
 
-	@ManyToMany(mappedBy = "people")
-	private List<AppInterest> interests;
-	
-	@ManyToMany(mappedBy = "members")
+    @ManyToMany
+    @JoinTable(name = "InterestPeople")
+    private List<AppInterest> interests;
+
+	@ManyToMany
+	@JoinTable(name = "GroupPeople")
 	private List<AppGroup> groups;
-	
+
 	public AppPerson() {
 		
 	}

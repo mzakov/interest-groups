@@ -17,12 +17,11 @@ public class AppInterest {
 	@Column
 	private String name;
 
-    @ManyToMany
-    @JoinTable(name = "InterestPeople")
-    @JsonIgnore
-    private List<AppPerson> people;
-    
-	public long getId() {
+	@ManyToMany(mappedBy = "interests")
+	@JsonIgnore
+	private List<AppPerson> people;
+	
+ 	public long getId() {
 		return id;
 	}
 

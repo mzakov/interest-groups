@@ -38,5 +38,9 @@ public class PersonService {
 		person.setName(newName);
 		return repo.saveAndFlush(person);
 	}
-
+	
+	public String delete(long id) {
+		repo.delete(id);
+		return "Person with id: " + id + " was deleted!";
+	}
 }

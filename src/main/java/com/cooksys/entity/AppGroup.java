@@ -25,11 +25,10 @@ public class AppGroup {
 	@JoinColumn
 	private AppInterest interest;
 	
-	@ManyToMany
-	@JoinTable(name = "GroupPeople")
+	@ManyToMany(mappedBy = "groups")
 	@JsonIgnore
 	private List<AppPerson> members;
-
+	
 	public long getId() {
 		return id;
 	}
