@@ -31,10 +31,10 @@ public class PersonController {
 		return personService.get(id);
 	}
 	
-//	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
-//	public AppPerson updatePerson(@PathVariable("id") long id) {
-//		return personService.get(id);
-//	}
+	@RequestMapping(path="/{id}/{newName}", method=RequestMethod.PATCH)
+	public AppPerson updatePerson(@PathVariable("id") long id, @PathVariable("newName") String newName) {
+		return personService.update(id, newName);
+	}
 	
 
 }
