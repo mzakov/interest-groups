@@ -1,6 +1,7 @@
 package com.cooksys.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -20,6 +21,10 @@ public class AppInterest {
 	@ManyToMany(mappedBy = "interests")
 	@JsonIgnore
 	private List<AppPerson> people;
+	
+	@OneToMany(mappedBy = "interest", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<AppGroup> groups;
 	
  	public long getId() {
 		return id;
@@ -44,4 +49,13 @@ public class AppInterest {
 	public void setPeople(List<AppPerson> people) {
 		this.people = people;
 	}
+
+	public Set<AppGroup> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(Set<AppGroup> groups) {
+		this.groups = groups;
+	}
+	
 }

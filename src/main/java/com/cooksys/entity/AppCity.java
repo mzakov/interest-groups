@@ -1,6 +1,10 @@
 package com.cooksys.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -16,6 +20,14 @@ public class AppCity {
 	@ManyToOne
 	@JoinColumn
 	private AppState state;
+	
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<AppGroup> groups;
+	
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<AppPerson> people;
 
 	public long getId() {
 		return id;
@@ -39,6 +51,14 @@ public class AppCity {
 
 	public void setState(AppState state) {
 		this.state = state;
+	}
+
+	public Set<AppGroup> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(Set<AppGroup> groups) {
+		this.groups = groups;
 	}
 
 
