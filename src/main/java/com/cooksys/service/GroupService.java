@@ -9,6 +9,7 @@ import com.cooksys.entity.AppCity;
 import com.cooksys.entity.AppGroup;
 import com.cooksys.entity.AppInterest;
 import com.cooksys.entity.AppPerson;
+import com.cooksys.model.GetAllPeopleResponse;
 import com.cooksys.repository.CityRepository;
 import com.cooksys.repository.GroupsRepository;
 import com.cooksys.repository.InterestsRepository;
@@ -94,21 +95,21 @@ public class GroupService {
 	}
 
 	// GET /api/groups/{id}/members
-	public List<AppPerson> getAllMembers(long id) {
-		return pplRepo.findAllByGroups_id(id);
+	public List<GetAllPeopleResponse> getAllMembers(long id) {
+		return GetAllPeopleResponse.list(pplRepo.findAllByGroups_id(id));
 	}
 
 	// PUT /api/groups/{id}/members
-	public AppGroup putMember(long id, long member_id) {
-		AppGroup group = groupRepo.findOne(id);
+	public List<GetAllPeopleResponse> putMember(long id, long member_id) {
 		AppPerson person = pplRepo.findOne(member_id);
+		AppGroup group = groupRepo.findOne(id);
 		if (person.getCity().equals(group.getCity()) && person.getInterests().contains(group.getInterest())) {
-			List<AppPerson> members = group.getMembers();
-			members.add(person);
-			group.setMembers(members);
-			return groupRepo.saveAndFlush(group);
+			List<AppGroup> ints = person.getGroups();
+			ints.add(group);
+			person.setGroups(ints);
+			pplRepo.saveAndFlush(person);
 		}
-		return group;
+		return GetAllPeopleResponse.list(pplRepo.findAllByGroups_id(id));
 	}
 
 	// DELETE /api/groups/{id}/members/{id}

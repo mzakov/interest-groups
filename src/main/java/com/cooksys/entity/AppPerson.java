@@ -35,10 +35,12 @@ public class AppPerson {
 		this.city = city;
 	}
 
+//	IS THAT OK???	
 	public void removeInterest(AppInterest interest) {
 		interests.remove(interest);
 	}
-
+	
+//	IS THAT OK???
 	public void removeGroup(AppGroup group) {
 		groups.remove(group);
 	}

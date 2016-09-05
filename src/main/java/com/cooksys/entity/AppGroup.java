@@ -39,6 +39,7 @@ public class AppGroup {
 		this.interest = interest;
 	}
 
+//	IS THAT OK???
 	public void removeMember(AppPerson member) {
 		members.remove(member);
 	}
