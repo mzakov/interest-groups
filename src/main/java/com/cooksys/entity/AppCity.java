@@ -13,21 +13,38 @@ public class AppCity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column
 	private String name;
-	
+
 	@ManyToOne
 	@JoinColumn
 	private AppState state;
-	
-	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+
+	public AppCity() {
+
+	}
+
+	public AppCity(String name, AppState state) {
+		this.name = name;
+		this.state = state;
+	}
+
+	@OneToMany(mappedBy = "city")
 	@JsonIgnore
 	private Set<AppGroup> groups;
-	
-	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "city")
 	@JsonIgnore
 	private Set<AppPerson> people;
+
+	public Set<AppPerson> getPeople() {
+		return people;
+	}
+
+	public void setPeople(Set<AppPerson> people) {
+		this.people = people;
+	}
 
 	public long getId() {
 		return id;
@@ -60,6 +77,5 @@ public class AppCity {
 	public void setGroups(Set<AppGroup> groups) {
 		this.groups = groups;
 	}
-
 
 }

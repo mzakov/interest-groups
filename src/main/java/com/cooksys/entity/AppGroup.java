@@ -9,26 +9,40 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table
 public class AppGroup {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column
 	private String name;
-	
+
 	@ManyToOne
 	@JoinColumn
 	private AppCity city;
-	
+
 	@ManyToOne
 	@JoinColumn
 	private AppInterest interest;
-	
+
 	@ManyToMany(mappedBy = "groups")
 	@JsonIgnore
 	private List<AppPerson> members;
-	
+
+	public AppGroup() {
+
+	}
+
+	public AppGroup(String name, AppCity city, AppInterest interest) {
+		this.name = name;
+		this.city = city;
+		this.interest = interest;
+	}
+
+	public void removeMember(AppPerson member) {
+		members.remove(member);
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -68,7 +82,5 @@ public class AppGroup {
 	public void setMembers(List<AppPerson> members) {
 		this.members = members;
 	}
-	
-	
-	
+
 }

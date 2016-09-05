@@ -14,19 +14,27 @@ public class AppInterest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column
 	private String name;
+
+	public AppInterest() {
+
+	}
+
+	public AppInterest(String name) {
+		this.name = name;
+	}
 
 	@ManyToMany(mappedBy = "interests")
 	@JsonIgnore
 	private List<AppPerson> people;
-	
-	@OneToMany(mappedBy = "interest", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "interest")
 	@JsonIgnore
 	private Set<AppGroup> groups;
-	
- 	public long getId() {
+
+	public long getId() {
 		return id;
 	}
 
@@ -57,5 +65,5 @@ public class AppInterest {
 	public void setGroups(Set<AppGroup> groups) {
 		this.groups = groups;
 	}
-	
+
 }

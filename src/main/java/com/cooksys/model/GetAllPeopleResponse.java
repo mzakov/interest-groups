@@ -6,21 +6,20 @@ import java.util.List;
 import com.cooksys.entity.AppPerson;
 
 public class GetAllPeopleResponse {
-	
+
 	private long id;
-	
+
 	private String name;
-	
+
 	public GetAllPeopleResponse(long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	
-	public static List<GetAllPeopleResponse> list(List<AppPerson> list)
-	{
+
+	public static List<GetAllPeopleResponse> list(List<AppPerson> list) {
 		ArrayList<GetAllPeopleResponse> result = new ArrayList<>();
-		for(AppPerson user : list)
+		for (AppPerson user : list)
 			result.add(new GetAllPeopleResponse(user.getId(), user.getName()));
 		return result;
 	}
@@ -40,5 +39,5 @@ public class GetAllPeopleResponse {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

@@ -3,7 +3,6 @@ package com.cooksys.entity;
 import java.util.List;
 import javax.persistence.*;
 
-
 @Entity
 @Table
 public class AppPerson {
@@ -11,29 +10,37 @@ public class AppPerson {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column
 	private String name;
-	
+
 	@ManyToOne
 	@JoinColumn
-	private AppCity city;	
+	private AppCity city;
 
-    @ManyToMany
-    @JoinTable(name = "InterestPeople")
-    private List<AppInterest> interests;
+	@ManyToMany
+	@JoinTable(name = "InterestPeople")
+	private List<AppInterest> interests;
 
 	@ManyToMany
 	@JoinTable(name = "GroupPeople")
 	private List<AppGroup> groups;
 
 	public AppPerson() {
-		
+
 	}
-	
+
 	public AppPerson(String name, AppCity city) {
 		this.name = name;
 		this.city = city;
+	}
+
+	public void removeInterest(AppInterest interest) {
+		interests.remove(interest);
+	}
+
+	public void removeGroup(AppGroup group) {
+		groups.remove(group);
 	}
 
 	public long getId() {

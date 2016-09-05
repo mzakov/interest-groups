@@ -13,18 +13,18 @@ public class AppState {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column
 	private String name;
-	
-	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "state")
 	@JsonIgnore
 	private Set<AppCity> cities;
-	
+
 	public AppState() {
 
 	}
-	
+
 	public AppState(String name) {
 		this.name = name;
 	}
