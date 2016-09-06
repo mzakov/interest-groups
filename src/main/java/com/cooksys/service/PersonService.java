@@ -9,7 +9,8 @@ import com.cooksys.entity.AppCity;
 import com.cooksys.entity.AppGroup;
 import com.cooksys.entity.AppInterest;
 import com.cooksys.entity.AppPerson;
-import com.cooksys.model.GetAllPeopleResponse;
+import com.cooksys.model.GetAllResponse;
+import com.cooksys.model.GetPerson;
 import com.cooksys.repository.CityRepository;
 import com.cooksys.repository.GroupsRepository;
 import com.cooksys.repository.InterestsRepository;
@@ -31,8 +32,8 @@ public class PersonService {
 	GroupsRepository groupsRepo;
 
 	// GET /api/people
-	public List<GetAllPeopleResponse> getAll() {
-		return GetAllPeopleResponse.list(repo.findAll());
+	public List<GetAllResponse> getAll() {
+		return GetAllResponse.listPeople(repo.findAll());
 	}
 
 	// POST /api/people
@@ -42,8 +43,8 @@ public class PersonService {
 	}
 
 	// GET /api/people/{id}
-	public AppPerson get(long id) {
-		return repo.findOne(id);
+	public GetPerson get(long id) {
+		return new GetPerson(repo.findOne(id));
 	}
 
 	// PATCH /api/people/{id}
@@ -94,8 +95,8 @@ public class PersonService {
 	}
 
 	// GET /api/people/{id}/groups
-	public List<AppGroup> getAllGroups(long id) {
-		return groupsRepo.findAllByMembers_id(id);
+	public List<GetAllResponse> getAllGroups(long id) {
+		return GetAllResponse.listGroups(groupsRepo.findAllByMembers_id(id));
 	}
 
 	// PUT /api/people/{id}/groups

@@ -53,8 +53,7 @@ public class InterestService {
 			group.setInterest(null);
 			groupRepo.saveAndFlush(group);
 		};
-		for (AppPerson member : pplRepo.findAll()) {
-			if(member.getInterests().contains(intr))
+		for (AppPerson member : pplRepo.findAllByInterests_id(id)) {
 			member.removeInterest(intr);
 			pplRepo.saveAndFlush(member);
 		}

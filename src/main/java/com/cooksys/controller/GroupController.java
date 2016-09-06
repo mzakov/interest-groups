@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.cooksys.entity.AppCity;
 import com.cooksys.entity.AppGroup;
 import com.cooksys.entity.AppInterest;
-import com.cooksys.model.GetAllPeopleResponse;
+import com.cooksys.model.GetAllResponse;
 import com.cooksys.service.GroupService;
 
 @RestController
@@ -20,7 +20,7 @@ public class GroupController {
 
 	// GET /api/groups
 	@RequestMapping(method = RequestMethod.GET)
-	public List<AppGroup> allGroups() {
+	public List<GetAllResponse> allGroups() {
 		return groupService.getAll();
 	}
 
@@ -75,13 +75,13 @@ public class GroupController {
 
 	// GET /api/groups/{id}/members
 	@RequestMapping(path = "/{id}/members", method = RequestMethod.GET)
-	public List<GetAllPeopleResponse> allPeople(@PathVariable("id") long id) {
+	public List<GetAllResponse> allPeople(@PathVariable("id") long id) {
 		return groupService.getAllMembers(id);
 	}
 
 	// PUT /api/groups/{id}/members
 	@RequestMapping(path = "/{id}/members/{member_id}", method = RequestMethod.PUT)
-	public List<GetAllPeopleResponse> putMember(@PathVariable("id") long id, @PathVariable("member_id") long member_id) {
+	public List<GetAllResponse> putMember(@PathVariable("id") long id, @PathVariable("member_id") long member_id) {
 		return groupService.putMember(id, member_id);
 	}
 

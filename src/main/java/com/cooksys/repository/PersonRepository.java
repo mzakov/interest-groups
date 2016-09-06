@@ -11,4 +11,6 @@ public interface PersonRepository extends JpaRepository<AppPerson, Long> {
 	List<AppPerson> findAllByCity_id(long city_id);
 
 	List<AppPerson> findAllByGroups_id(long groups_id);
+	
+	List<AppPerson> findAllByInterests_id(long interests_id);
 }

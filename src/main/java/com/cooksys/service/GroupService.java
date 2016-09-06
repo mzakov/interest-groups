@@ -9,7 +9,7 @@ import com.cooksys.entity.AppCity;
 import com.cooksys.entity.AppGroup;
 import com.cooksys.entity.AppInterest;
 import com.cooksys.entity.AppPerson;
-import com.cooksys.model.GetAllPeopleResponse;
+import com.cooksys.model.GetAllResponse;
 import com.cooksys.repository.CityRepository;
 import com.cooksys.repository.GroupsRepository;
 import com.cooksys.repository.InterestsRepository;
@@ -31,8 +31,8 @@ public class GroupService {
 	PersonRepository pplRepo;
 
 	// GET /api/groups
-	public List<AppGroup> getAll() {
-		return groupRepo.findAll();
+	public List<GetAllResponse> getAll() {
+		return GetAllResponse.listGroups(groupRepo.findAll());
 	}
 
 	// POST /api/groups
@@ -93,12 +93,12 @@ public class GroupService {
 	}
 
 	// GET /api/groups/{id}/members
-	public List<GetAllPeopleResponse> getAllMembers(long id) {
-		return GetAllPeopleResponse.list(pplRepo.findAllByGroups_id(id));
+	public List<GetAllResponse> getAllMembers(long id) {
+		return GetAllResponse.listPeople(pplRepo.findAllByGroups_id(id));
 	}
 
 	// PUT /api/groups/{id}/members
-	public List<GetAllPeopleResponse> putMember(long id, long member_id) {
+	public List<GetAllResponse> putMember(long id, long member_id) {
 		AppPerson person = pplRepo.findOne(member_id);
 		AppGroup group = groupRepo.findOne(id);
 		if (person.getCity().equals(group.getCity()) && person.getInterests().contains(group.getInterest())) {
@@ -107,7 +107,7 @@ public class GroupService {
 			person.setGroups(ints);
 			pplRepo.saveAndFlush(person);
 		}
-		return GetAllPeopleResponse.list(pplRepo.findAllByGroups_id(id));
+		return GetAllResponse.listPeople(pplRepo.findAllByGroups_id(id));
 	}
 
 	// DELETE /api/groups/{id}/members/{id}

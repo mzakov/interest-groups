@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.cooksys.entity.AppCity;
-import com.cooksys.entity.AppGroup;
 import com.cooksys.entity.AppInterest;
 import com.cooksys.entity.AppPerson;
-import com.cooksys.model.GetAllPeopleResponse;
+import com.cooksys.model.GetAllResponse;
+import com.cooksys.model.GetPerson;
 import com.cooksys.service.PersonService;
 
 @RestController
@@ -21,7 +21,7 @@ public class PersonController {
 
 	// GET /api/people
 	@RequestMapping(method = RequestMethod.GET)
-	public List<GetAllPeopleResponse> allPeople() {
+	public List<GetAllResponse> allPeople() {
 		return personService.getAll();
 	}
 
@@ -33,7 +33,7 @@ public class PersonController {
 
 	// GET /api/people/{id}
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public AppPerson getPerson(@PathVariable("id") long id) {
+	public GetPerson getPerson(@PathVariable("id") long id) {
 		return personService.get(id);
 	}
 
@@ -81,7 +81,7 @@ public class PersonController {
 
 	// GET /api/people/{id}/groups
 	@RequestMapping(path = "/{id}/groups", method = RequestMethod.GET)
-	public List<AppGroup> allGroups(@PathVariable("id") long id) {
+	public List<GetAllResponse> allGroups(@PathVariable("id") long id) {
 		return personService.getAllGroups(id);
 	}
 
