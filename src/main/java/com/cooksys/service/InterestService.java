@@ -50,14 +50,14 @@ public class InterestService {
 	public String delete(long id) {
 		AppInterest intr = intRepo.findOne(id);
 		for (AppGroup group : groupRepo.findAllByInterest_id(id)) {
-			for (AppPerson member : group.getMembers()) {
-				member.removeInterest(intr);
-				pplRepo.saveAndFlush(member);
-			}
 			group.setInterest(null);
 			groupRepo.saveAndFlush(group);
+		};
+		for (AppPerson member : pplRepo.findAll()) {
+			if(member.getInterests().contains(intr))
+			member.removeInterest(intr);
+			pplRepo.saveAndFlush(member);
 		}
-		;
 		intRepo.delete(id);
 		return "State with id: " + id + " was deleted!";
 	}
