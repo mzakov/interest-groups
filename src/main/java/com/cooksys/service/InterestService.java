@@ -49,14 +49,15 @@ public class InterestService {
 	// DELETE /api/interests/{id}
 	public String delete(long id) {
 		AppInterest intr = intRepo.findOne(id);
+		
+		//This is where the magic happens!
 		for (AppGroup group : groupRepo.findAllByInterest_id(id)) {
 			group.setInterest(null);
-			groupRepo.saveAndFlush(group);
 		};
 		for (AppPerson member : pplRepo.findAllByInterests_id(id)) {
 			member.removeInterest(intr);
-			pplRepo.saveAndFlush(member);
 		}
+		
 		intRepo.delete(id);
 		return "State with id: " + id + " was deleted!";
 	}
