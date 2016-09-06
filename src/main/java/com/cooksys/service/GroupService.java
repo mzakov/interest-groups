@@ -61,8 +61,6 @@ public class GroupService {
 			member.removeGroup(group);
 			pplRepo.saveAndFlush(member);
 		}
-		group.setInterest(null);
-		group.setCity(null);
 		groupRepo.delete(id);
 		return "Person with id: " + id + " was deleted!";
 	}
