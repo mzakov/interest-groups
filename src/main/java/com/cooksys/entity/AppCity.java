@@ -7,34 +7,26 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"state_id", "name"}))
 public class AppCity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable=false)
 	private long id;
 
-	@Column
+	@Column(nullable=false)
 	private String name;
 
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
+	@JoinColumn(name="state_id") //State is not a column type. This is the column that represents a join between entity, not contains the entity
 	private AppState state;
 
-	public AppCity() {
-
-	}
-
-	public AppCity(String name, AppState state) {
-		this.name = name;
-		this.state = state;
-	}
-
-	@OneToMany(mappedBy = "city")
+	@OneToMany(mappedBy = "city", fetch=FetchType.LAZY)
 	@JsonIgnore
 	private Set<AppGroup> groups;
 
-	@OneToMany(mappedBy = "city")
+	@OneToMany(mappedBy = "city", fetch=FetchType.LAZY)
 	@JsonIgnore
 	private Set<AppPerson> people;
 
@@ -77,5 +69,12 @@ public class AppCity {
 	public void setGroups(Set<AppGroup> groups) {
 		this.groups = groups;
 	}
-
+//	public AppCity() {
+//
+//	}
+//
+//	public AppCity(String name, AppState state) {
+//		this.name = name;
+//		this.state = state;
+//	}
 }

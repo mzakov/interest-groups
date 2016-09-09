@@ -7,27 +7,20 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table
+@Table(uniqueConstraints=@UniqueConstraint(columnNames = "name"))
 public class AppState {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable=false)
 	private long id;
 
-	@Column
+	@Column(nullable=false)
 	private String name;
 
-	@OneToMany(mappedBy = "state")
+	@OneToMany(mappedBy = "state", fetch=FetchType.LAZY)
 	@JsonIgnore
 	private Set<AppCity> cities;
-
-	public AppState() {
-
-	}
-
-	public AppState(String name) {
-		this.name = name;
-	}
 
 	public long getId() {
 		return id;
@@ -52,5 +45,11 @@ public class AppState {
 	public void setCities(Set<AppCity> cities) {
 		this.cities = cities;
 	}
-
+//	public AppState() {
+//
+//	}
+//
+//	public AppState(String name) {
+//		this.name = name;
+//	}
 }

@@ -7,42 +7,28 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"city_id", "interest_id", "name"}))
 public class AppGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable=false)
 	private long id;
 
-	@Column
+	@Column(nullable=false)
 	private String name;
 
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
+	@JoinColumn(name="city_id")
 	private AppCity city;
 
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
+	@JoinColumn(name="interest_id")
 	private AppInterest interest;
 
 	@ManyToMany(mappedBy = "groups")
 	@JsonIgnore
 	private List<AppPerson> members;
-
-	public AppGroup() {
-
-	}
-
-	public AppGroup(String name, AppCity city, AppInterest interest) {
-		this.name = name;
-		this.city = city;
-		this.interest = interest;
-	}
-
-//	IS THAT OK???
-	public void removeMember(AppPerson member) {
-		members.remove(member);
-	}
 
 	public long getId() {
 		return id;
@@ -84,4 +70,18 @@ public class AppGroup {
 		this.members = members;
 	}
 
+//	public AppGroup() {
+//
+//	}
+//
+//	public AppGroup(String name, AppCity city, AppInterest interest) {
+//		this.name = name;
+//		this.city = city;
+//		this.interest = interest;
+//	}
+//
+////	IS THAT OK???
+//	public void removeMember(AppPerson member) {
+//		members.remove(member);
+//	}
 }

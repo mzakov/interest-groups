@@ -1,49 +1,30 @@
 package com.cooksys.entity;
 
-import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
-@Table
 public class AppPerson {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable=false)
 	private long id;
 
-	@Column
+	@Column(nullable=false)
 	private String name;
 
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	private AppCity city;
 
-	@ManyToMany
-	@JoinTable(name = "InterestPeople")
-	private List<AppInterest> interests;
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "person_interests")
+	private Set<AppInterest> interests;
 
 	@ManyToMany
-	@JoinTable(name = "GroupPeople")
-	private List<AppGroup> groups;
-
-	public AppPerson() {
-
-	}
-
-	public AppPerson(String name, AppCity city) {
-		this.name = name;
-		this.city = city;
-	}
-
-//	IS THAT OK???	
-	public void removeInterest(AppInterest interest) {
-		interests.remove(interest);
-	}
-	
-//	IS THAT OK???
-	public void removeGroup(AppGroup group) {
-		groups.remove(group);
-	}
+	@JoinTable(name = "person_groups")
+	private Set<AppGroup> groups;
 
 	public long getId() {
 		return id;
@@ -69,20 +50,38 @@ public class AppPerson {
 		this.city = city;
 	}
 
-	public List<AppInterest> getInterests() {
+	public Set<AppInterest> getInterests() {
 		return interests;
 	}
 
-	public void setInterests(List<AppInterest> interests) {
+	public void setInterests(Set<AppInterest> interests) {
 		this.interests = interests;
 	}
 
-	public List<AppGroup> getGroups() {
+	public Set<AppGroup> getGroups() {
 		return groups;
 	}
 
-	public void setGroups(List<AppGroup> groups) {
+	public void setGroups(Set<AppGroup> groups) {
 		this.groups = groups;
 	}
 
+//	public AppPerson() {
+//
+//	}
+//
+//	public AppPerson(String name, AppCity city) {
+//		this.name = name;
+//		this.city = city;
+//	}
+//
+////	IS THAT OK???	
+//	public void removeInterest(AppInterest interest) {
+//		interests.remove(interest);
+//	}
+//	
+////	IS THAT OK???
+//	public void removeGroup(AppGroup group) {
+//		groups.remove(group);
+//	}
 }

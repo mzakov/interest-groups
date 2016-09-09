@@ -2,6 +2,7 @@ package com.cooksys.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.cooksys.entity.AppGroup;
 import com.cooksys.entity.AppPerson;
@@ -18,16 +19,16 @@ public class GetAllResponse {
 		this.name = name;
 	}
 
-	public static List<GetAllResponse> listPeople(List<AppPerson> list) {
+	public static List<GetAllResponse> listPeople(Set<AppPerson> set) {
 		ArrayList<GetAllResponse> result = new ArrayList<>();
-		for (AppPerson user : list)
+		for (AppPerson user : set)
 			result.add(new GetAllResponse(user.getId(), user.getName()));
 		return result;
 	}
 	
-	public static List<GetAllResponse> listGroups(List<AppGroup> list) {
+	public static List<GetAllResponse> listGroups(Set<AppGroup> set) {
 		ArrayList<GetAllResponse> result = new ArrayList<>();
-		for (AppGroup group : list)
+		for (AppGroup group : set)
 			result.add(new GetAllResponse(group.getId(), group.getName()));
 		return result;
 	}

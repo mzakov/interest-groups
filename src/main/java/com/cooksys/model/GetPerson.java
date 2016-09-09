@@ -1,6 +1,7 @@
 package com.cooksys.model;
 
 import java.util.List;
+import java.util.Set;
 
 import com.cooksys.entity.AppCity;
 import com.cooksys.entity.AppInterest;
@@ -14,7 +15,7 @@ public class GetPerson {
 	
 	private AppCity city;
 	
-	private List<AppInterest> interests;
+	private Set<AppInterest> interests;
 	
 	private List<GetAllResponse> groups;
 	
@@ -50,11 +51,11 @@ public class GetPerson {
 		this.city = city;
 	}
 
-	public List<AppInterest> getInterests() {
+	public Set<AppInterest> getInterests() {
 		return interests;
 	}
 
-	public void setInterests(List<AppInterest> interests) {
+	public void setInterests(Set<AppInterest> interests) {
 		this.interests = interests;
 	}
 

@@ -7,54 +7,59 @@ import org.springframework.web.bind.annotation.*;
 
 import com.cooksys.entity.AppCity;
 import com.cooksys.entity.AppState;
-import com.cooksys.service.CityService;
+import com.cooksys.service.interfaces.CityService;
 
 @RestController
 @RequestMapping("cities")
 public class CityController {
 
+	private final CityService cityService;
+	
 	@Autowired
-	private CityService cityService;
+	public CityController(CityService cityService) {
+		super();
+		this.cityService = cityService;
+	}
 
 	// GET /api/cities
 	@RequestMapping(method = RequestMethod.GET)
-	public List<AppCity> allCities() {
-		return cityService.getAll();
+	public List<AppCity> index() {
+		return cityService.index();
 	}
 
 	// POST /api/cities
-	@RequestMapping(path = "/{name},{state_id}", method = RequestMethod.POST)
-	public AppCity newCity(@PathVariable("name") String name, @PathVariable("state_id") long state_id) {
-		return cityService.set(name, state_id);
+	@RequestMapping(method = RequestMethod.POST)
+	public AppCity create(@RequestBody AppCity city) {
+		return cityService.create(city);
 	}
 
 	// GET /api/cities/{id}
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public AppCity getCity(@PathVariable("id") long id) {
-		return cityService.get(id);
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public AppCity read(@PathVariable("id") long id) {
+		return cityService.read(id);
 	}
 
 	// PATCH /api/cities/{id}
-	@RequestMapping(path = "/{id}/{newName}", method = RequestMethod.PATCH)
-	public AppCity updateCity(@PathVariable("id") long id, @PathVariable("newName") String newName) {
-		return cityService.update(id, newName);
+	@RequestMapping(value = "{id}", method = RequestMethod.PATCH)
+	public AppCity update(@PathVariable("id") long id, @RequestBody AppCity cityToUpdate) {
+		return cityService.update(id, cityToUpdate);
 	}
 
 	// DELETE /api/cities/{id}
-	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public String deleteCity(@PathVariable("id") long id) {
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public AppCity delete(@PathVariable("id") long id) {
 		return cityService.delete(id);
 	}
 
 	// GET /api/cities/{id}/state
 	@RequestMapping(path = "/{id}/state", method = RequestMethod.GET)
-	public AppState getState(@PathVariable("id") long id) {
-		return cityService.getState(id);
+	public AppState readState(@PathVariable("id") long id) {
+		return cityService.readState(id);
 	}
 
 	// PUT /api/cities/{id}/state
-	@RequestMapping(path = "/{id}/state/{state_id}", method = RequestMethod.PUT)
-	public AppCity putState(@PathVariable("id") long id, @PathVariable("state_id") long state_id) {
-		return cityService.putState(id, state_id);
+	@RequestMapping(path = "/{id}/state", method = RequestMethod.PUT)
+	public AppCity putState(@PathVariable("id") long id, @RequestBody AppState stateToPut) {
+		return cityService.updateState(id, stateToPut);
 	}
 }

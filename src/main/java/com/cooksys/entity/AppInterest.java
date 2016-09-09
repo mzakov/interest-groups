@@ -1,6 +1,5 @@
 package com.cooksys.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -8,31 +7,24 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "AppInterest")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "name"), name = "AppInterest")
 public class AppInterest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable=false)
 	private long id;
 
-	@Column
+	@Column(nullable=false)
 	private String name;
 
-	public AppInterest() {
-
-	}
-
-	public AppInterest(String name) {
-		this.name = name;
-	}
-
-	@ManyToMany(mappedBy = "interests")
 	@JsonIgnore
-	private List<AppPerson> people;
-
-	@OneToMany(mappedBy = "interest")
-	@JsonIgnore
+	@OneToMany(mappedBy = "interest", fetch=FetchType.LAZY)
 	private Set<AppGroup> groups;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "interests", fetch=FetchType.LAZY)
+	private Set<AppPerson> people;
 
 	public long getId() {
 		return id;
@@ -50,11 +42,11 @@ public class AppInterest {
 		this.name = name;
 	}
 
-	public List<AppPerson> getPeople() {
+	public Set<AppPerson> getPeople() {
 		return people;
 	}
 
-	public void setPeople(List<AppPerson> people) {
+	public void setPeople(Set<AppPerson> people) {
 		this.people = people;
 	}
 
@@ -65,5 +57,13 @@ public class AppInterest {
 	public void setGroups(Set<AppGroup> groups) {
 		this.groups = groups;
 	}
+	
+//	public AppInterest() {
+//
+//	}
+//
+//	public AppInterest(String name) {
+//		this.name = name;
+//	}
 
 }
